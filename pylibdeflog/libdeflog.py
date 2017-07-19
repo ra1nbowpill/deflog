@@ -7,7 +7,7 @@
 #********************************************************/
 
 import re
-from htmlentitydefs import name2codepoint 
+from html.entities import name2codepoint 
 
 #<code from http://www.gossamer-threads.com/lists/python/python/623437>
 EntityPattern = re.compile(u'&(?:#(\d+)|(?:#x([\da-fA-F]+))|([a-zA-Z]+));')
@@ -16,15 +16,15 @@ def decodeEntities(s, encoding='utf-8'):
     def unescape(match):
         code = match.group(1)
         if code:
-            return unichr(int(code, 10))
+            return chr(int(code, 10))
         else:
             code = match.group(2)
         if code:
-            return unichr(int(code, 16))
+            return chr(int(code, 16))
         else:
             code = match.group(3)
         if code in name2codepoint:
-            return unichr(name2codepoint[code])
+            return chr(name2codepoint[code])
         return match.group(0)
 
     return EntityPattern.sub(unescape, s) 
@@ -153,9 +153,9 @@ def desms(word, format='html'):
     u'ac&aacute;'
     >>> desms(u'ak', format='html')
     u'ac&aacute;'
-    >>> #no se como hacer que pase sin hacer esta cosa
-    >>> print desms(u'ak', format='plain').encode('utf-8')
-    ac\xc3\xa1
+    >>> #no se como hacer que este pase
+    >>> desms(u'ak', format='plain')
+    u'ac\xe1'
     """
     
     translations = {u'+': u'm&aacute;s',
@@ -296,9 +296,9 @@ def desestupidizar(word, format='html'):
     u'est&aacute;s'
     >>> desestupidizar(u'taz', format='html')
     u'est&aacute;s'
-    >>> #no se como hacer que pase sin hacer esta cosa
-    >>> print desestupidizar(u'taz', format='plain').encode('utf-8')
-    est\xc3\xa1s
+    >>> #no se como hacer que este pase
+    >>> desestupidizar(u'taz', format='plain')
+    u'est\xe1s'
     """
     translations = {u'10pre': u'siempre',
                     u'arre': u'&lt;alguna sensaci&oacute;n&gt;',
@@ -444,6 +444,12 @@ def desk(word, format='html'):
 
 
 def desporteniar(word, format='html'):
+    """
+        Elimina las eses finales en palabras que terminan en istes
+
+        >>> desestupidizar(u'lo vistes y me dijistes')
+        u'lo viste y me dijiste'
+    """
     lword = word.lower()
     if len(lword) > 5 and lword[-4:] == u'stes':
         word = lword[:-1]
@@ -465,6 +471,25 @@ def deszezear(word, format='html'):
 
 
 def fixmissingvowels(word, format='html'):
+    """
+        Arega vocales omitidas el final de las palabras (va a fallar en palabras
+        en inglés, porque se supone que en español muy pocas palabras finalizan
+        por ejemplo en 't', entonces se asume que se le debe agregar una e)
+        >>> fixmissingvowels(u'stamos')
+        u'estamos'
+        >>> fixmissingvowels(u'spero')
+        u'estamos'
+        >>> fixmissingvowels(u'stamos')
+        u'espero'
+        >>> fixmissingvowels(u'dcile')
+        u'decile'
+        >>> fixmissingvowels(u'nterado')
+        u'enterado'
+        >>> fixmissingvowels(u'vrdad')
+        u'verdad'
+        >>> fixmissingvowels(u'comprart')
+        u'comprarte'
+    """
     exceptions = [u'get', u'cat', u'that', u'best', u'post', u'net', u'chat']
     vocales = [u'a', u'e', u'i', u'o',u'u']
     followsd = [u'a', u'e', u'i', u'o',u'u', u'r', u'h', u'y']
