@@ -1,69 +1,73 @@
 # [Deflog](https://github.com/sbruno/deflog)
 
-## Descripción
 
-Este programa intenta eliminar varias de las características del lenguaje flogger, como repetición de letras, alternación de mayúsculas y minúsculas, abreviaturas de sms, etc. Se presenta en un varias versiones:
+## Description
 
-### Versiones web
+This program tries to eliminate several characteristics of the language flogger, like repetition of letters, alternation of uppercase and lowercase, abbreviations of sms, etc. for spanish. It is presented in a number of versions:
 
-* PHP
-* Javascript
-* Python usando cherrypy
 
-### Versiones desktop
+### Web Versions
 
-* PyQT4
-* CLI
-* Otres
-	- Como un plugin para Messenger Plus! Live.
-	- Módulo python con las funciones utilizadas.
+* [PHP](./php/)
+* [Javascript](./javascript/)
+* [Python w/ cherrypy](./python-cherrypy/)
 
-## Capturas de pantalla
+### Desktop Versions
 
-### Captura de la versión online:
+* [PyQT4](./pyqt/)
+* [CLI](./deflog.py)
+* Others
+	- [Plugin for Messenger Plus! Live](./msnlive_plugin/)
+	- [Python module](./pylibdeflog/)
+
+
+## Screenshots
+
+### Online version:
 
 ![Online version](http://bananabruno.googlepages.com/deflog-javascript-screenshot-small.jpg)
 
-Captura del plugin para Messenger Plus! Live:
+### Messenger Plus! Live Plugin:
 
 ![Plugin for Messenger PLus! Live](http://bananabruno.googlepages.com/deflog-msnlive-screenshot-small.jpg)
 
-## Descargas
 
-Las descargas recomendadas para las cuatro variantes del programa son las que aparecen en Featured Downloads.
+## Download
 
-El plugin puede ser descargado también desde el sitio de Messenger Plus! Live : http://www.msgpluslive.net/scripts/view/404-DeFlog/
+The latest stable versions can be downloaded from http://code.google.com/p/deflog/downloads/list
 
-Pero esa puede no ser la última versión. Para descargar la última versión, hacerlo desde http://code.google.com/p/deflog/downloads/list
+The plugin for Messenger Plus! Live was available through their website : http://www.msgpluslive.net/scripts/view/404-DeFlog/
 
-O para ver alguna novedad experimental (?), el trunk del repositorio: http://deflog.googlecode.com/svn/trunk/msnlive_plugin/package/deflog.plsc
 
-DISCLAIMER: El plugin solo puede aplicar todos los métodos correctamente a los mensajes salientes. Es una limitación del messenger como se dice en mi página o la página del plugin en el sitio de Messenger Plus! Live
+## Try it !
 
-## Probar Online
+[PHP Version](http://www.santiagobruno.com.ar/php/desfotologuear.php)
 
-[Versión en PHP](http://www.santiagobruno.com.ar/php/desfotologuear.php)
+[JS Version](http://www.santiagobruno.com.ar/javascript/desfotologuear.html)
 
-[Versión en Javascript](http://www.santiagobruno.com.ar/javascript/desfotologuear.html)
 
-## Descripción de los métodos aplicables al texto
+## Description of the methods
 
-* **Desmultiplicar**: Elimina repeticiones de letras (holaaaaa -> hola)
+Most of the method are made for spanish.
 
-* **Deszezear**: Transforma zetas en eses (Desactivado por defecto ya que no es nada inteligente, y si el texto está relativamente bien escrito generará más errores de ortografía de los que solucionará)
+§ = The method is language independant.
 
-* **Des-k-ar**: Similar a Deszezear pero para k -> c. Además transforma ki en qui.
+All methods can be applied selectively
 
-* **DesSMSar**: Elimina abreviaturas SMS (xq -> por que, dsp -> después)
+* **Desmultiplicar §**: Removes letters repetition (holaaaaa -> hola)
+
+* **Deszezear**: Transforms \'z\' in \'s\' (Deactivated by default because it creates more harm than good)
+
+* **Des-k-ar**: Transforms \'k\' in \'q\' (ki -> qui)
+
+* **DesSMSar**: Replace SMS abbreviations (xq -> por que, dsp -> después)
 
 * **Desestupidizar**: (toi -> estoy, i -> y, lemdo -> lindo)
 
-* **Desalternar**: Convierte palabras con mezcla de mayúsculas y minúsculas a minúscula (LeTrA dE uNa CaNcIoN -> letra de una cancion)
+* **Desalternar §**: Convert mixed lowercase uppercase words to lowercase and keeps uppercased word (Letra DE UnA CaNcIoN -> letra DE una cancion)
 
-* **Desporteñar**: Elimina las eses finales en palabras que terminan en istes (lo vistes y me dijistes -> lo viste y me dijiste)
+* **Desporteñar**: Removes finals \'s\'s in words ending in \'istes\' (lo vistes y me dijistes -> lo viste y me dijiste)
 
-* **Deleet**: Convierte a letra los números que se usan como letra (3s7o e5 un 73x70 f30 -> esto es un texto feo)
+* **Deleet §**: Convert l33t 5p34k to standard speak (3s7o e5 un 73x70 f30 -> esto es un texto feo)
 
-* **Fix missing vowels**: Arega vocales omitidas el final de las palabras (va a fallar en palabras en inglés, porque se supone que en español muy pocas palabras finalizan por ejemplo en 't', entonces se asume que se le debe agregar una e) (stamos -> estamos, spero -> espero, dcile -> decile, nterado -> enterado, vrdad -> verdad, comprart, comprarte)
-
-Todos los métodos pueden aplicarse selectivamente
+* **Fix missing vowels**: Add missing vowels (it doesn\'t work english words) (stamos -> estamos, spero -> espero, dcile -> decile, nterado -> enterado, vrdad -> verdad, comprart, comprarte)
